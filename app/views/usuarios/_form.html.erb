@@ -1,0 +1,27 @@
+<%= simple_form_for(@usuario) do |f| %>
+  <div class="row">
+    <div class="col">
+      <%= f.error_notification %>
+    </div>
+  </div>
+
+  <div class="form-inputs row">
+    <div class="col">
+      <%= f.input :nome %>
+      <%= f.input :cpf, label: "CPF" %>
+      <%= f.input :email, label: "E-mail" %>
+    </div>
+    <div class="col">
+      <%= f.input :password, label: "Senha" %>
+      <%= f.input :password_confirmation, label: "Confirme sua senha" %>
+      <%= f.input :isAdmin, label: "Usuário administrador?" if current_user.isAdmin %>
+    </div>
+
+    <div class="col-auto control-bttns">
+      <%= button_tag type: 'submit', class: "btn btn-primary" do %>
+        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+      <% end %> <br>
+      <%= link_to fa_icon(:undo), (current_user.isAdmin ? usuarios_path : recibos_path), class: "btn btn-secondary" if current_user.isAdmin %>
+    </div>
+  </div>
+<% end %>

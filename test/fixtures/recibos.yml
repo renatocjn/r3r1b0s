@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  data: 2017-12-01
+  valor: 1
+  valor_extenso: MyString
+
+two:
+  data: 2017-12-01
+  valor: 1
+  valor_extenso: MyString

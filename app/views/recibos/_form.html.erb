@@ -1,0 +1,44 @@
+<%= simple_form_for(@recibo) do |f| %>
+  <% d = @recibo.recibo_assinado.nil? ? false : true %>
+  <div class="row">
+    <div class="col">
+      <%= f.error_notification %>
+    </div>
+  </div>
+
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col">
+        <%= f.input :data, disabled: d %>
+        <%= f.input :valor, disabled: d, label: "Valor do recibo" %>
+        <%= f.input :valor_extenso, disabled: d, label: "Valor por extenso" %>
+      </div>
+
+      <div class="col">
+        <%= f.association :empresa, disabled: d %>
+        <%= f.association :favorecido, disabled: d %>
+        <%= f.input :referente, disabled: d, as: :text, label: "Recibo referente à" %>
+      </div>
+
+      <div class="col-auto control-bttns">
+        <%= button_tag type: 'submit', class: "btn btn-primary" do %>
+          <i class="fa fa-save" aria-hidden="true"></i>
+        <% end %> <br>
+        <%= link_to fa_icon(:undo), empresas_path, class: "btn btn-secondary" %> <br>
+      </div>
+    </div>
+
+    <% unless @recibo.new_record? %>
+      <div class="row">
+        <div class="col">
+          <div class="form-group string required empresa_info_img">
+            <label class="control-label string required" for="empresa_info_img">
+            <abbr title="required">*</abbr> Recibo assinado </label>
+            <%= f.attachment_field :recibo_assinado, class: "form-control string required" %>
+            <span class="help-block"><%=f.error :recibo_assinado%></span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

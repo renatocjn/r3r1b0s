@@ -1,0 +1,61 @@
+
+<div class="row">
+  <div class="col">
+    <h3> <%= @recibo %> </h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <p>
+      <label>Data:</label>
+      <%= localize @recibo.data %>
+    </p>
+
+    <p>
+      <label>Valor do recibo:</label>
+      <%= number_to_currency @recibo.valor %>
+    </p>
+
+    <p>
+      <label>Valor por extenso:</label>
+      <%= @recibo.valor_extenso %>
+    </p>
+
+    <p>
+      <label>Referente à:</label>
+      <%= @recibo.referente %>
+    </p>
+  </div>
+  <div class="col">
+    <p>
+      <label>Empresa:</label>
+      <%= link_to @recibo.empresa.nome, @recibo.empresa %>
+    </p>
+
+    <p>
+      <label>Favorecido:</label>
+      <%= link_to @recibo.favorecido.nome, @recibo.favorecido %>
+    </p>
+
+    <% if current_user.isAdmin %>
+      <p>
+        <label>Usuário responsável:</label>
+        <%= link_to @recibo.usuario.nome, @recibo.usuario %>
+      </p>
+    <% end %>
+
+    <p>
+      <% if @recibo.recibo_assinado.nil? %>
+        <div class="alert alert-warning"> O Recibo assinado ainda não foi salvo </div>
+      <% else %>
+        <%= link_to "Download do recibo assinado", attachment_url(@recibo, :recibo_assinado), class: "btn btn-sm btn-info" %>
+      <% end %>
+    </p>
+  </div>
+  <div class="col-auto control-bttns">
+    <%= link_to fa_icon(:list), recibos_path, class: "btn btn-secondary" %> <br>
+    <%= link_to fa_icon(:pencil), edit_recibo_path(@recibo), class: "btn btn-warning" %> <br>
+    <%= link_to fa_icon(:print), recibo_path(@recibo, :format => :pdf), class: "btn btn-info" %> <br>
+  </div>
+</div>

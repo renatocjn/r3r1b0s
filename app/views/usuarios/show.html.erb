@@ -1,0 +1,30 @@
+
+<div class="row">
+  <div class="col">
+    <h3>Usuário: <%= @usuario.nome %></h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <p>
+      <label>CPF:</label>
+      <%= @usuario.cpf %>
+    </p>
+  </div>
+  <div class="col">
+    <p>
+      <label>E-mail:</label>
+      <%= @usuario.email %>
+    </p>
+
+    <p>
+      <label>Usuário Administrador?</label>
+      <%= @usuario.isAdmin ? "Sim" : "Não" %>
+    </p>
+  </div>
+  <div class="col-auto control-bttns">
+    <%= link_to fa_icon(:list), (current_user.isAdmin ? usuarios_path : recibos_path), class: "btn btn-secondary" %> <br>
+    <%= link_to fa_icon(:pencil), edit_usuario_path(@usuario), class: "btn btn-warning" %> <br>
+  </div>
+</div>

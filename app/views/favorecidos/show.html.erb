@@ -1,0 +1,25 @@
+
+<div class="row">
+  <div class="col">
+    <h3>Favorecido: <%= @favorecido.nome %></h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <p>
+      <label>RG:</label>
+      <%= @favorecido.rg.nil? ? "Não cadastrado" : @favorecido.rg %>
+    </p>
+  </div>
+  <div class="col">
+    <p>
+      <label>CPF/CNPJ:</label>
+      <%= @favorecido.cpf_cnpj %>
+    </p>
+  </div>
+  <div class="col-auto control-bttns">
+    <%= link_to fa_icon(:list), favorecidos_path, class: "btn btn-secondary" %> <br>
+    <%= link_to fa_icon(:pencil), edit_favorecido_path(@favorecido), class: "btn btn-warning" %> <br>
+  </div>
+</div>

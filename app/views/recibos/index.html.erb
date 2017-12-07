@@ -1,0 +1,75 @@
+
+<div class="row">
+  <div class="col">
+    <h3>Lista de Recibos</h3>
+  </div>
+</div>
+
+<div class="modal fade" id="filter-form" tabindex="-1" role="dialog" aria-labelledby="filter-form-long-title" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Filtros</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= simple_form_for :recibo, url: recibos_path, method: :get do |f| %>
+        <div class="row modal-body">
+          <div class="col">
+            <%= f.input :max_data, as: :date, label: "Data máxima", include_blank: false %>
+            <%= f.input :min_data, as: :date, label: "Data mínima", include_blank: false %>
+            <%= f.input :referente, as: :text, label: "Referente à", include_blank: false %>
+          </div>
+          <div class="col">
+            <%= f.input :empresa, label: "Empresa de interesse", include_blank: false %>
+            <%= f.input :favorecido, label: "Favorecido de interesse", include_blank: false %>
+            <%= f.input :usuario, label: "Usuário de interesse", include_blank: false %>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <%= f.submit "Aplicar", class: "btn btn-primary control-bttn", value: ""%>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Data</th>
+          <th scope="col">Valor</th>
+          <th scope="col">Referente</th>
+          <th scope="col">Empresa</th>
+          <th scope="col">Favorecido</th>
+          <% if current_user.isAdmin %> <th scope="col">Usuário</th> <% end %>
+          <th scope="col" colspan="<%= current_user.isAdmin ? 2 : 1 %>"></th>
+          <th scope="col"><%= link_to fa_icon("filter"), new_recibo_path, class: "btn btn-primary control-bttn", "data-toggle" => "modal", "data-target" => "#filter-form" %></th>
+          <th scope="col"><%= link_to fa_icon("plus-circle"), new_recibo_path, class: "btn btn-primary control-bttn" %></th>
+        </tr>
+      </thead<
+
+      <tbody>
+        <% @recibos.each do |recibo| %>
+          <tr scope="row">
+            <td><%= recibo.id %></td>
+            <td><%= localize recibo.data %></td>
+            <td><%= number_to_currency recibo.valor %></td>
+            <td><%= recibo.referente %></td>
+            <td><%= link_to recibo.empresa.nome, empresa_path(recibo.empresa) %></td>
+            <td><%= link_to recibo.favorecido.nome, favorecido_path(recibo.favorecido) %></td>
+            <% if current_user.isAdmin %> <td><%= link_to recibo.usuario.nome, usuario_path(recibo.usuario) %></td> <% end %>
+            <td><%= link_to fa_icon("info-circle"), recibo, class: "btn btn-info control-bttn" %></td>
+            <td><%= link_to fa_icon(:print), recibo_path(recibo, :format => :pdf), class: "btn btn-info control-bttn" %></td>
+            <td><%= link_to fa_icon(:pencil), edit_recibo_path(recibo), class: "btn btn-warning control-bttn" %></td>
+            <% if current_user.isAdmin %> <td><%= link_to fa_icon(:trash), recibo, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger control-bttn" %></td> <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

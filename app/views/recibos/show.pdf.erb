@@ -1,0 +1,38 @@
+
+<% 2.times do |i| %>
+  <div class="via">
+    <div class="num-via"> <%=i+1%>º Via </div>
+
+    <div class="logo-div">
+      <% logo_tag = empresa.info_img.nil? ? "" : wicked_pdf_image_tag(attachment_url(empresa, :info_img), width: "100%", height: "100%") %>
+      <%# logo_tag = empresa.info_img.nil? ? "" : wicked_pdf_image_tag("http://www.betaetiquetas.com.br/product_images/y/643/teste1__63139_zoom.png", width: "100%", height: "100%", alt: "Selo da empresa não encontrado, faça upload novamente") %>
+      <%# logo_tag = wicked_pdf_image_tag(:ImagemReciboCasebras, width: "100%", height: "100%", alt: "") %>
+      <% logger.debug "DEBUG " + logo_tag %> <%= logo_tag %>
+    </div>
+
+    <div class="recibo-titulo">
+      <%=recibo%>
+    </div>
+
+    <div class="recibo-valor">
+      <%= number_to_currency recibo.valor %>
+    </div>
+
+    <div class="recibo-texto">
+      Recebi(emos) de <%=recibo.empresa.nome%> a importância de <%=recibo.valor_extenso%> referente à <%=recibo.referente%>
+    </div>
+
+    <div class="recibo-assinatura">
+      <div class="data"><%=localize recibo.data, format: :long%></div>
+      <hr>
+      <div class="favorecido"> <%=recibo.favorecido.nome%>
+      <br>
+      <span class="cpf_cnpj"><strong>CPF/CNPJ</strong> <%= recibo.favorecido.cpf_cnpj %></span>
+      <% unless recibo.favorecido.rg.nil? %>
+        | <span class="rg"><strong>RG</strong> <%= recibo.favorecido.rg %></span
+      <% end %>
+      </div>
+      </div>
+    </div>
+  </div>
+<% end %>

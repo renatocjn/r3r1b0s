@@ -1,0 +1,22 @@
+<%= simple_form_for(@favorecido) do |f| %>
+  <div class="row">
+    <div class="col">
+      <%= f.error_notification %>
+    </div>
+  </div>
+
+  <div class="form-inputs row">
+    <div class="col">
+      <%= f.input :nome %>
+      <%= f.input :rg, label: "RG" %>
+      <%= f.input :cpf_cnpj, label: "CPF/CNPJ" %>
+    </div>
+
+    <div class="col-auto control-bttns">
+      <%= button_tag type: 'submit', class: "btn btn-primary" do %>
+        <i class="fa fa-save" aria-hidden="true"></i>
+      <% end %> <br>
+      <%= link_to fa_icon(:undo), empresas_path, class: "btn btn-secondary" %> <br>
+    </div>
+  </div>
+<% end %>

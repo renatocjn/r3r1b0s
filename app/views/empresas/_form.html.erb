@@ -1,0 +1,28 @@
+<%= simple_form_for(@empresa) do |f| %>
+  <div class="row">
+    <div class="col">
+      <%= f.error_notification %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <%= f.input :nome %>
+      <%= f.input :cpf_cnpj, label: "CPF/CNPJ" %>
+
+      <div class="form-group string required empresa_info_img">
+        <label class="control-label string required" for="empresa_info_img">
+        <abbr title="required">*</abbr> Selo com informações da empresa </label>
+        <%= f.attachment_field :info_img, class: "form-control string required" %>
+        <span class="help-block"><%=f.error :info_img%></span>
+      </div>
+    </div>
+
+    <div class="col-auto control-bttns">
+      <%= button_tag type: 'submit', class: "btn btn-primary" do %>
+        <i class="fa fa-save" aria-hidden="true"></i>
+      <% end %> <br>
+      <%= link_to fa_icon(:undo), empresas_path, class: "btn btn-secondary" %> <br>
+    </div>
+  </div>
+<% end %>

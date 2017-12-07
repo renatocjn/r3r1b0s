@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recibo Nº<%=recibo.id%></title>
+  <style>
+    .via {
+      width: 15cm;
+      height: 11cm;
+      border-style: solid;
+      border-width: 2px;
+      margin: 1.5cm auto;
+      padding: 0.5cm;
+    }
+
+    .num-via {
+      float: left;
+      width: 2cm;
+    }
+
+    .logo-div {
+      width: 10cm;
+      height: 1.8cm;
+      max-width: 10cm;
+      max-height: 1.8cm;
+      float: right;
+      border-style: solid;
+      border-width: 0px;
+    }
+
+    .recibo-titulo, .recibo-valor {
+      font-size: 14pt;
+    }
+
+    .recibo-titulo {
+      position: relative;
+      top: 3.15cm;
+      float: left;
+      font-weight: bold;
+      right: 1.5cm;
+    }
+
+    .recibo-valor {
+      position: relative;
+      top: 2.5cm;
+      left: 7cm;
+      float: right;
+      font-weight: bold;
+    }
+
+    .recibo-texto, .recibo-assinatura {
+      font-size: 12pt;
+    }
+
+    .recibo-texto {
+      position: relative;
+      top: 3cm;
+      float: left;
+      text-align: justify;
+    }
+
+    .recibo-assinatura {
+      position: relative;
+      top: 4.5cm;
+      float: left;
+      width: 100%;
+    }
+
+    .recibo-assinatura .favorecido{
+      text-align: center;
+    }
+
+    .recibo-assinatura hr {
+      width: 8cm;
+      margin-top: 1cm;
+    }
+
+    .recibo-assinatura .favorecido .cpf_cnpj,
+    .recibo-assinatura .favorecido .rg {
+      font-size: 10pt;
+    }
+
+    /*.recibo-assinatura .favorecido .cpf_cnpj {*/
+    /*  float: left;*/
+    /*}*/
+
+    /*.recibo-assinatura .favorecido .rg {*/
+    /*  float: right;*/
+    /*}*/
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"> </script>
+
+    img {
+      display: none;
+    }
+
+
+    img[src] {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>

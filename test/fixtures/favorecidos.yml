@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  rg: MyString
+  cpf_cnpj: MyString
+
+two:
+  rg: MyString
+  cpf_cnpj: MyString

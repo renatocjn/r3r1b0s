@@ -1,0 +1,39 @@
+
+<div class="row">
+  <div class="col">
+      <h3>Usuários</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Nome</th>
+          <th scope="col">CPF</th>
+          <th scope="col">E-mail</th>
+          <th scope="col">Administrador?</th>
+          <th scope="col" colspan="<%= current_user.isAdmin ? 2 : 1 %>"></th>
+          <th scope="col"><%= link_to fa_icon("plus-circle"), new_usuario_path, class: "btn btn-primary control-bttn" %></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @usuarios.each do |usuario| %>
+          <tr scope="row">
+            <td><%= usuario.nome %></td>
+            <td><%= usuario.cpf %></td>
+            <td><%= usuario.email %></td>
+            <td><%= usuario.isAdmin ? fa_icon(:check) : fa_icon(:times) %></td>
+            <td><%= link_to fa_icon("info-circle"), usuario, class: "btn btn-info control-bttn" %></td>
+            <td><%= link_to fa_icon(:pencil), edit_usuario_path(usuario), class: "btn btn-warning control-bttn" %></td>
+            <% if current_user.isAdmin %>
+              <td><%= link_to fa_icon(:trash), usuario, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger control-bttn" %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

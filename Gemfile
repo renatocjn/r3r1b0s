@@ -76,3 +76,6 @@ gem "font-awesome-rails", "~> 4.7"
 
 # Added at 2017-12-07 12:57:07 +0000 by ubuntu:
 gem "bootstrap-table-rails", "~> 1.11"
+
+# Added at 2017-12-07 17:25:24 +0000 by ubuntu:
+gem "kaminari", "~> 1.1"

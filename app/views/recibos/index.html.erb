@@ -48,10 +48,23 @@
           <th scope="col">Favorecido</th>
           <% if current_user.isAdmin %> <th scope="col">Usuário</th> <% end %>
           <th scope="col" colspan="<%= current_user.isAdmin ? 2 : 1 %>"></th>
-          <th scope="col"><%= link_to fa_icon("filter"), new_recibo_path, class: "btn btn-primary control-bttn", "data-toggle" => "modal", "data-target" => "#filter-form" %></th>
+          <th scope="col"><%= link_to fa_icon("filter"), "", class: "btn btn-primary control-bttn", "data-toggle" => "modal", "data-target" => "#filter-form" %></th>
           <th scope="col"><%= link_to fa_icon("plus-circle"), new_recibo_path, class: "btn btn-primary control-bttn" %></th>
         </tr>
-      </thead<
+      </thead>
+
+      <colgroup>
+        <col style=":width: 4em">
+        <col style=":width: 10em">
+        <col style=":width: 6em">
+        <col style=":width: 40em">
+        <col style=":width: 20em">
+        <col style=":width: 20em">
+        <% if current_user.isAdmin %> <col style=":width: 20em"> <col style=":width: 3em"> <% end %>
+        <col style=":width: 3em">
+        <col style=":width: 3em">
+        <col style=":width: 3em">
+      </colgroup>
 
       <tbody>
         <% @recibos.each do |recibo| %>

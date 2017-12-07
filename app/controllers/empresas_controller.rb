@@ -6,7 +6,15 @@ class EmpresasController < ApplicationController
   # GET /empresas
   # GET /empresas.json
   def index
-    @empresas = Empresa.all
+    if params.key? :empresa
+      if params[:empresa].key? :nome
+        @empresas = Empresa.where("lower(nome) like '%#{params[:empresa][:nome].downcase}%'").order(created_at: :desc).page(params[:page])
+      elsif params[:empresa].key? :cpf_cnpj
+        @empresas = Empresa.where("cpf_cnpj like '%#{params[:empresa][:cpf_cnpj]}%'").order(created_at: :desc).page(params[:page])
+      end
+    else
+      @empresas = Empresa.all.order(created_at: :desc).page(params[:page])
+    end
   end
 
   # GET /empresas/1
@@ -27,7 +35,6 @@ class EmpresasController < ApplicationController
   # POST /empresas.json
   def create
     @empresa = Empresa.new(empresa_params)
-
     respond_to do |format|
       if @empresa.save
         format.html { redirect_to empresas_url, notice: 'Empresa registrada com sucesso.' }

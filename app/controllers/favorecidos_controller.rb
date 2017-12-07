@@ -6,7 +6,17 @@ class FavorecidosController < ApplicationController
   # GET /favorecidos
   # GET /favorecidos.json
   def index
-    @favorecidos = Favorecido.all
+    if params.key? :favorecido
+      if params[:favorecido].key? :nome
+        @favorecidos = Favorecido.where("lower(nome) like '%#{params[:favorecido][:nome].downcase}%'").order(created_at: :desc).page(params[:page])
+      elsif params[:favorecido].key? :cpf_cnpj
+        @favorecidos = Favorecido.where("cpf_cnpj like '%#{params[:favorecido][:cpf_cnpj]}%'").order(created_at: :desc).page(params[:page])
+      elsif params[:favorecido].key? :rg
+        @favorecidos = Favorecido.where("rg like '%#{params[:favorecido][:rg]}%'").order(created_at: :desc).page(params[:page])
+      end
+    else
+      @favorecidos = Favorecido.all.order(created_at: :desc).page(params[:page])
+    end
   end
 
   # GET /favorecidos/1

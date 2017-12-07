@@ -7,7 +7,17 @@ class UsuariosController < ApplicationController
   # GET /usuarios
   # GET /usuarios.json
   def index
-    @usuarios = Usuario.all
+    if params.key? :usuario
+      if params[:usuario].key? :nome
+        @usuarios = Usuario.where("lower(nome) like '%#{params[:usuario][:nome].downcase}%'").order(created_at: :desc).page(params[:page])
+      elsif params[:usuario].key? :cpf
+        @usuarios = Usuario.where("cpf like '%#{params[:usuario][:cpf]}%'").order(created_at: :desc).page(params[:page])
+      elsif params[:usuario].key? :email
+        @usuarios = Usuario.where("lower(email) like '%#{params[:usuario][:email].downcase}%'").order(created_at: :desc).page(params[:page])
+      end
+    else
+      @usuarios = Usuario.all.order(created_at: :desc).page(params[:page])
+    end
   end
 
   # GET /usuarios/1

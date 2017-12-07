@@ -1,41 +1,85 @@
-
 <div class="row">
   <div class="col">
     <h3>Lista de Empresas</h3>
   </div>
+  <div class="col-4 d-flex justify-content-center">
+    <%= paginate @empresas %>
+  </div>
 </div>
 
-<table class="table table-hover table-no-bordered">
-  <thead>
-    <tr>
-      <th data-sortable="true">Nome</th>
-      <th data-sortable="true">CPF/CNPJ</th>
-      <th colspan="2">
-        <nav>
-          <ul class="pagination">
-            <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&laquo;</span></a>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <a class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a>
-          </ul>
-        </nav>
-      </th>
-      <th> <%= link_to fa_icon("plus-circle"), new_empresa_path, class: "btn btn-primary control-bttn" %> </th>
-    </tr>
-  </thead>
+<div class="modal fade" id="filter-form" tabindex="-1" role="dialog" aria-labelledby="filter-form-long-title" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Filtros</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for :empresa, url: empresas_path, method: :get do |f| %>
+          <div class="row">
+            <div class="col">
+              <%= f.input :nome, label: false, placeholder: "Nome da empresa" %>
+            </div>
+            <div class="col-auto">
+              <%= button_tag type: :submit, class: "btn btn-primary control-bttn" do %>
+                <%= fa_icon(:search) %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <%= simple_form_for :empresa, url: empresas_path, method: :get do |f| %>
+          <div class="row">
+            <div class="col">
+              <%= f.input :cpf_cnpj, label: false, placeholder: "CPF/CNPJ" %>
+            </div>
+            <div class="col-auto">
+              <%= button_tag type: :submit, class: "btn btn-primary control-bttn" do %>
+                <%= fa_icon(:search) %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <%= link_to "Remover Filtros", empresas_path, class: "btn btn-danger btn-block"%>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <tbody>
-    <% @empresas.each do |empresa| %>
-      <tr>
-        <td><%= empresa.nome %></td>
-        <td><%= empresa.cpf_cnpj %></td>
-        <td><%= link_to fa_icon("info-circle"), empresa, class: "btn btn-info control-bttn" %> </td>
-        <td><%= link_to fa_icon(:pencil), edit_empresa_path(empresa), class: "btn btn-warning control-bttn" %></td>
-        <td><%= link_to fa_icon(:trash), empresa, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger control-bttn" %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col">
+    <table class="table table-hover table-no-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Nome</th>
+          <th scope="col">CPF/CNPJ</th>
+          <th scope="col"></th>
+          <th scope="col"> <%= link_to fa_icon(:filter), "", class: "btn btn-primary control-bttn", "data-toggle" => "modal", "data-target" => "#filter-form" %> </th>
+          <th scope="col"> <%= link_to fa_icon("plus-circle"), new_empresa_path, class: "btn btn-primary control-bttn" %> </th>
+        </tr>
+      </thead>
 
+      <colgroup>
+        <col class="col">
+        <col class="col-auto">
+        <col class="col-auto">
+        <col class="col-auto">
+        <col class="col-auto">
+      </colgroup>
+
+      <tbody>
+        <% @empresas.each do |empresa| %>
+          <tr scope="row">
+            <td><%= empresa.nome %></td>
+            <td class="cpf-cnpj-col"><%= empresa.cpf_cnpj %></td>
+            <td><%= link_to fa_icon("info-circle"), empresa, class: "btn btn-info control-bttn" %> </td>
+            <td><%= link_to fa_icon(:pencil), edit_empresa_path(empresa), class: "btn btn-warning control-bttn" %></td>
+            <td><%= link_to fa_icon(:trash), empresa, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger control-bttn" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 

@@ -33,3 +33,11 @@ td {
   height: 2.5em;
   margin: 0.5em;
 }
+
+.cpf-cnpj-col {
+  min-width: 12em;
+}
+
+.form-inline div {
+  display: inline-block
+}

@@ -5,26 +5,88 @@
   </div>
 </div>
 
+<div class="modal fade" id="filter-form" tabindex="-1" role="dialog" aria-labelledby="filter-form-long-title" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Filtros</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for :usuario, url: usuarios_path, method: :get do |f| %>
+          <div class="row">
+            <div class="col">
+              <%= f.input :nome, label: false, placeholder: "Nome do usuario" %>
+            </div>
+            <div class="col-auto">
+              <%= button_tag type: :submit, class: "btn btn-primary control-bttn" do %>
+                <%= fa_icon(:search) %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <%= simple_form_for :usuario, url: usuarios_path, method: :get do |f| %>
+          <div class="row">
+            <div class="col">
+              <%= f.input :cpf, label: false, placeholder: "CPF" %>
+            </div>
+            <div class="col-auto">
+              <%= button_tag type: :submit, class: "btn btn-primary control-bttn" do %>
+                <%= fa_icon(:search) %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <%= simple_form_for :usuario, url: usuarios_path, method: :get do |f| %>
+          <div class="row">
+            <div class="col">
+              <%= f.input :email, label: false, placeholder: "E-mail" %>
+            </div>
+            <div class="col-auto">
+              <%= button_tag type: :submit, class: "btn btn-primary control-bttn" do %>
+                <%= fa_icon(:search) %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <%= link_to "Remover Filtros", usuarios_path, class: "btn btn-danger btn-block"%>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="row">
   <div class="col">
     <table class="table table-hover">
       <thead>
         <tr>
           <th scope="col">Nome</th>
-          <th scope="col">CPF</th>
           <th scope="col">E-mail</th>
+          <th scope="col">CPF</th>
           <th scope="col">Administrador?</th>
-          <th scope="col" colspan="<%= current_user.isAdmin ? 2 : 1 %>"></th>
+          <% if current_user.isAdmin %> <th scope="col"></th> <% end %>
+          <th scope="col"><%= link_to fa_icon("filter"), "", class: "btn btn-primary control-bttn", "data-toggle" => "modal", "data-target" => "#filter-form" %></th>
           <th scope="col"><%= link_to fa_icon("plus-circle"), new_usuario_path, class: "btn btn-primary control-bttn" %></th>
         </tr>
       </thead>
+
+      <colgroup>
+        <col class="col">
+        <col class="col">
+        <col class="col-auto">
+        <col class="col-auto">
+        <col class="col-auto">
+        <col class="col-auto">
+      </colgroup>
 
       <tbody>
         <% @usuarios.each do |usuario| %>
           <tr scope="row">
             <td><%= usuario.nome %></td>
-            <td><%= usuario.cpf %></td>
             <td><%= usuario.email %></td>
+            <td class="cpf-cnpj-col"><%= usuario.cpf %></td>
             <td><%= usuario.isAdmin ? fa_icon(:check) : fa_icon(:times) %></td>
             <td><%= link_to fa_icon("info-circle"), usuario, class: "btn btn-info control-bttn" %></td>
             <td><%= link_to fa_icon(:pencil), edit_usuario_path(usuario), class: "btn btn-warning control-bttn" %></td>

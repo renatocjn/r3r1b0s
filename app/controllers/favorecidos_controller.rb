@@ -1,18 +1,18 @@
 class FavorecidosController < ApplicationController
   before_action :set_favorecido, only: [:show, :edit, :update, :destroy]
   before_action :authorize
-  before_action :is_admin
+  before_action :is_admin, except: [:show]
 
   # GET /favorecidos
   # GET /favorecidos.json
   def index
     if params.key? :favorecido
       if params[:favorecido].key? :nome
-        @favorecidos = Favorecido.where("lower(nome) like '%#{params[:favorecido][:nome].downcase}%'").order(created_at: :desc).page(params[:page])
+        @favorecidos = Favorecido.where("lower(nome) like '%#{params[:favorecido][:nome].strip.downcase}%'").order(created_at: :desc).page(params[:page])
       elsif params[:favorecido].key? :cpf_cnpj
-        @favorecidos = Favorecido.where("cpf_cnpj like '%#{params[:favorecido][:cpf_cnpj]}%'").order(created_at: :desc).page(params[:page])
+        @favorecidos = Favorecido.where("cpf_cnpj like '%#{params[:favorecido][:cpf_cnpj].strip}%'").order(created_at: :desc).page(params[:page])
       elsif params[:favorecido].key? :rg
-        @favorecidos = Favorecido.where("rg like '%#{params[:favorecido][:rg]}%'").order(created_at: :desc).page(params[:page])
+        @favorecidos = Favorecido.where("rg like '%#{params[:favorecido][:rg].strip}%'").order(created_at: :desc).page(params[:page])
       end
     else
       @favorecidos = Favorecido.all.order(created_at: :desc).page(params[:page])
@@ -37,7 +37,9 @@ class FavorecidosController < ApplicationController
   # POST /favorecidos.json
   def create
     @favorecido = Favorecido.new(favorecido_params)
-
+    @favorecido.nome = sanitize @favorecido.nome
+    @favorecido.rg = sanitize @favorecido.rg
+    @favorecido.cpf_cnpj = sanitize @favorecido.cpf_cnpj
     respond_to do |format|
       if @favorecido.save
         format.html { redirect_to favorecidos_url, notice: 'Favorecido criado com sucesso.' }

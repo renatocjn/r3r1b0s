@@ -64,33 +64,24 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">Nome</th>
-          <th scope="col">RG</th>
-          <th scope="col">CPF/CNPJ</th>
-          <th scope="col"></th>
-          <th scope="col"><%= link_to fa_icon("filter"), "", class: "btn btn-primary control-bttn", "data-toggle" => "modal", "data-target" => "#filter-form" %></th>
-          <th scope="col"><%= link_to fa_icon("plus-circle"), new_favorecido_path, class: "btn btn-primary control-bttn" %> </th>
+          <th scope="col" class="col">Nome</th>
+          <th scope="col" class="col-auto">RG</th>
+          <th scope="col" class="cpf-cnpj-col">CPF/CNPJ</th>
+          <th scope="col" class="col-auto"></th>
+          <th scope="col" class="col-auto"><%= link_to fa_icon("filter"), "", class: "btn btn-primary control-bttn", "data-toggle" => "modal", "data-target" => "#filter-form" %></th>
+          <th scope="col" class="col-auto"><%= link_to fa_icon("plus-circle"), new_favorecido_path, class: "btn btn-primary control-bttn" %> </th>
         </tr>
       </thead>
-
-      <colgroup>
-        <col class="col">
-        <col class="col-auto">
-        <col class="col-auto">
-        <col class="col-auto">
-        <col class="col-auto">
-        <col class="col-auto">
-      </colgroup>
 
       <tbody>
         <% @favorecidos.each do |favorecido| %>
           <tr scope="row">
-            <td><%= favorecido.nome %></td>
+            <td class="col"><%= favorecido.nome %></td>
             <td class="cpf-cnpj-col"><%= favorecido.rg %></td>
             <td class="cpf-cnpj-col"><%= favorecido.cpf_cnpj %></td>
-            <td><%= link_to fa_icon("info-circle"), favorecido, class: "btn btn-info control-bttn" %></td>
-            <td><%= link_to fa_icon(:pencil), edit_favorecido_path(favorecido), class: "btn btn-warning control-bttn" %></td>
-            <td><%= link_to fa_icon(:trash), favorecido, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger control-bttn" %></td>
+            <td class="col-auto"><%= link_to fa_icon("info-circle"), favorecido, class: "btn btn-info control-bttn" %></td>
+            <td class="col-auto"><%= link_to fa_icon(:pencil), edit_favorecido_path(favorecido), class: "btn btn-warning control-bttn" %></td>
+            <td class="col-auto"><%= link_to fa_icon(:trash), favorecido, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger control-bttn" %></td>
           </tr>
         <% end %>
       </tbody>

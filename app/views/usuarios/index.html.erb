@@ -3,6 +3,9 @@
   <div class="col">
       <h3>Usuários</h3>
   </div>
+  <div class="col-4 d-flex justify-content-center">
+    <%= paginate @usuarios %>
+  </div>
 </div>
 
 <div class="modal fade" id="filter-form" tabindex="-1" role="dialog" aria-labelledby="filter-form-long-title" aria-hidden="true">
@@ -62,36 +65,27 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">Nome</th>
-          <th scope="col">E-mail</th>
-          <th scope="col">CPF</th>
-          <th scope="col">Administrador?</th>
+          <th scope="col" class="col">Nome</th>
+          <th scope="col" class="col">E-mail</th>
+          <th scope="col" class="cpf-cnpj-col">CPF</th>
+          <th scope="col" class="col-auto">Administrador?</th>
           <% if current_user.isAdmin %> <th scope="col"></th> <% end %>
-          <th scope="col"><%= link_to fa_icon("filter"), "", class: "btn btn-primary control-bttn", "data-toggle" => "modal", "data-target" => "#filter-form" %></th>
-          <th scope="col"><%= link_to fa_icon("plus-circle"), new_usuario_path, class: "btn btn-primary control-bttn" %></th>
+          <th scope="col" class="col-auto"><%= link_to fa_icon("filter"), "", class: "btn btn-primary control-bttn", "data-toggle" => "modal", "data-target" => "#filter-form" %></th>
+          <th scope="col" class="col-auto"><%= link_to fa_icon("plus-circle"), new_usuario_path, class: "btn btn-primary control-bttn" %></th>
         </tr>
       </thead>
-
-      <colgroup>
-        <col class="col">
-        <col class="col">
-        <col class="col-auto">
-        <col class="col-auto">
-        <col class="col-auto">
-        <col class="col-auto">
-      </colgroup>
 
       <tbody>
         <% @usuarios.each do |usuario| %>
           <tr scope="row">
-            <td><%= usuario.nome %></td>
-            <td><%= usuario.email %></td>
+            <td class="col"><%= usuario.nome %></td>
+            <td class="col"><%= usuario.email %></td>
             <td class="cpf-cnpj-col"><%= usuario.cpf %></td>
-            <td><%= usuario.isAdmin ? fa_icon(:check) : fa_icon(:times) %></td>
-            <td><%= link_to fa_icon("info-circle"), usuario, class: "btn btn-info control-bttn" %></td>
-            <td><%= link_to fa_icon(:pencil), edit_usuario_path(usuario), class: "btn btn-warning control-bttn" %></td>
+            <td class="col-auto"><%= usuario.isAdmin ? fa_icon(:check) : fa_icon(:times) %></td>
+            <td class="col-auto"><%= link_to fa_icon("info-circle"), usuario, class: "btn btn-info control-bttn" %></td>
+            <td class="col-auto"><%= link_to fa_icon(:pencil), edit_usuario_path(usuario), class: "btn btn-warning control-bttn" %></td>
             <% if current_user.isAdmin %>
-              <td><%= link_to fa_icon(:trash), usuario, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger control-bttn" %></td>
+              <td class="col-auto"><%= link_to fa_icon(:trash), usuario, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger control-bttn" %></td>
             <% end %>
           </tr>
         <% end %>

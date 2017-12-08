@@ -8,38 +8,39 @@ class RecibosController < ApplicationController
   # GET /recibos.json
   def index
     if current_user.isAdmin
-      @recibos = Recibo.all.order("created_at DESC")
+      @recibos = Recibo.all
     else
-      @recibos = current_user.recibos.order("created_at DESC")
+      @recibos = current_user.recibos
     end
 
-    if params[:id]
-      @recibos = @recibos.find(params[:id])
-    else
-      if params[:min_data]
-        @recibos = @recibos.where("data >= ?", params[:min_data])
-      end
+    if params.key? :recibo
+      if params[:recibo].key? :id
+        @recibos = @recibos.where("id = #{params[:recibo][:id].strip}")
+      else
+        if params[:recibo].key? :min_data and params[:recibo].key? :max_data
+          params[:recibo][:min_data] = (Date.today - 30.years).to_s if params[:recibo][:min_data].blank?
+          params[:recibo][:max_data] = (Date.today + 30.years).to_s if params[:recibo][:max_data].blank?
+          @recibos = @recibos.where("data >= ? and data <=?", Date.parse(params[:recibo][:min_data]), Date.parse(params[:recibo][:max_data]))
+        end
 
-      if params[:max_data]
-        @recibos = @recibos.where("data <= ?", params[:max_data])
-      end
+        if params[:recibo].key? :referente
+          @recibos = @recibos.where("referente like '%#{params[:recibo][:referente].strip}%'")
+        end
 
-      if params[:ref]
-        @recibos = @recibos.where("referente like '%#{params[:ref]}%'")
-      end
+        if params[:recibo].key? :empresa
+          @recibos = @recibos.joins(:empresa).where("empresas.nome like '%#{params[:recibo][:empresa].strip}%'")
+        end
 
-      if params[:empresa]
-        @recibos = @recibos.joins(:empresa).where("empresas.nome like '%#{params[:empresa]}%'")
-      end
+        if params[:recibo].key? :favorecido
+          @recibos = @recibos.joins(:favorecido).where("favorecidos.nome like '%#{params[:recibo][:favorecido].strip}%'")
+        end
 
-      if params[:favorecido]
-        @recibos = @recibos.joins(:favorecido).where("favorecidos.nome like '%#{params[:favorecido]}%'")
-      end
-
-      if params[:usuario]
-        @recibos = @recibos.joins(:usuario).where("usuarios.nome like '%#{params[:usuario]}%'")
+        if params[:recibo].key? :usuario
+          @recibos = @recibos.joins(:usuario).where("usuarios.nome like '%#{params[:recibo][:usuario].strip}%'")
+        end
       end
     end
+    @recibos = @recibos.includes(:empresa, :favorecido, :usuario).order(created_at: :desc).page(params[:page])
   end
 
   # GET /recibos/1
@@ -118,7 +119,7 @@ class RecibosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recibo_params
-      params.require(:recibo).permit(:data, :valor, :valor_extenso, :referente, :recibo_assinado, :empresa_id, :favorecido_id, :max_data, :min_date)
+      params.require(:recibo).permit(:data, :valor, :valor_extenso, :referente, :recibo_assinado, :empresa_id, :favorecido_id, :max_date, :min_date)
     end
 
     def mine_or_admin

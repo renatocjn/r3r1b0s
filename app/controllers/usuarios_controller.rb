@@ -9,11 +9,11 @@ class UsuariosController < ApplicationController
   def index
     if params.key? :usuario
       if params[:usuario].key? :nome
-        @usuarios = Usuario.where("lower(nome) like '%#{params[:usuario][:nome].downcase}%'").order(created_at: :desc).page(params[:page])
+        @usuarios = Usuario.where("lower(nome) like '%#{params[:usuario][:nome].strip.downcase}%'").order(created_at: :desc).page(params[:page])
       elsif params[:usuario].key? :cpf
-        @usuarios = Usuario.where("cpf like '%#{params[:usuario][:cpf]}%'").order(created_at: :desc).page(params[:page])
+        @usuarios = Usuario.where("cpf like '%#{params[:usuario][:cpf].strip}%'").order(created_at: :desc).page(params[:page])
       elsif params[:usuario].key? :email
-        @usuarios = Usuario.where("lower(email) like '%#{params[:usuario][:email].downcase}%'").order(created_at: :desc).page(params[:page])
+        @usuarios = Usuario.where("lower(email) like '%#{params[:usuario][:email].strip.downcase}%'").order(created_at: :desc).page(params[:page])
       end
     else
       @usuarios = Usuario.all.order(created_at: :desc).page(params[:page])

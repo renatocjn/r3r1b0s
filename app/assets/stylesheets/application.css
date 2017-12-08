@@ -25,6 +25,12 @@ th,
 td {
   text-align: center;
   vertical-align: middle;
+  word-wrap: break-word;
+}
+
+th.col-auto,
+td.col-auto {
+  white-space: nowrap;
 }
 
 .control-bttns .btn,
@@ -36,6 +42,7 @@ td {
 
 .cpf-cnpj-col {
   min-width: 12em;
+  white-space: nowrap;
 }
 
 .form-inline div {

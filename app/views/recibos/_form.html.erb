@@ -9,7 +9,7 @@
   <div class="form-inputs">
     <div class="row">
       <div class="col">
-        <%= f.input :data, disabled: d %>
+        <%= f.input :data, as: :string, input_html: {"data-mask" => "99/99/9999"}, disabled: d %>
         <%= f.input :valor, disabled: d, label: "Valor do recibo" %>
         <%= f.input :valor_extenso, disabled: d, label: "Valor por extenso" %>
       </div>

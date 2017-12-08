@@ -8,13 +8,13 @@
   <div class="form-inputs row">
     <div class="col">
       <%= f.input :nome %>
-      <%= f.input :cpf, label: "CPF" %>
-      <%= f.input :email, label: "E-mail" %>
+      <%= f.input :cpf, input_html: {"data-mask" => '999.999.999-99'}, input_html: {"data-mask" => '99/99/9999'}, label: "CPF" %>
+      <%= f.input :email, placeholder: "usuario@dominio.com.br", label: "E-mail" %>
     </div>
     <div class="col">
       <%= f.input :password, label: "Senha" %>
       <%= f.input :password_confirmation, label: "Confirme sua senha" %>
-      <%= f.input :isAdmin, label: "Usuário administrador?" if current_user.isAdmin %>
+      <%= f.input :isAdmin, as: :select, include_blank: false, label: "Usuário administrador?" if current_user.isAdmin %>
     </div>
 
     <div class="col-auto control-bttns">

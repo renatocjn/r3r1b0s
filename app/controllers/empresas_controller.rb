@@ -1,16 +1,16 @@
 class EmpresasController < ApplicationController
   before_action :set_empresa, only: [:show, :edit, :update, :destroy]
   before_action :authorize
-  before_action :is_admin
+  before_action :is_admin, except: [:show]
 
   # GET /empresas
   # GET /empresas.json
   def index
     if params.key? :empresa
       if params[:empresa].key? :nome
-        @empresas = Empresa.where("lower(nome) like '%#{params[:empresa][:nome].downcase}%'").order(created_at: :desc).page(params[:page])
+        @empresas = Empresa.where("lower(nome) like '%#{params[:empresa][:nome].strip.downcase}%'").order(created_at: :desc).page(params[:page])
       elsif params[:empresa].key? :cpf_cnpj
-        @empresas = Empresa.where("cpf_cnpj like '%#{params[:empresa][:cpf_cnpj]}%'").order(created_at: :desc).page(params[:page])
+        @empresas = Empresa.where("cpf_cnpj like '%#{params[:empresa][:cpf_cnpj].strip}%'").order(created_at: :desc).page(params[:page])
       end
     else
       @empresas = Empresa.all.order(created_at: :desc).page(params[:page])

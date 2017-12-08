@@ -3,10 +3,13 @@
   <div class="col">
     <h3>Lista de Recibos</h3>
   </div>
+  <div class="col-4 d-flex justify-content-center">
+    <%= paginate @recibos %>
+  </div>
 </div>
 
 <div class="modal fade" id="filter-form" tabindex="-1" role="dialog" aria-labelledby="filter-form-long-title" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title">Filtros</h3>
@@ -14,23 +17,85 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <%= simple_form_for :recibo, url: recibos_path, method: :get do |f| %>
-        <div class="row modal-body">
-          <div class="col">
-            <%= f.input :max_data, as: :date, label: "Data máxima", include_blank: false %>
-            <%= f.input :min_data, as: :date, label: "Data mínima", include_blank: false %>
-            <%= f.input :referente, as: :text, label: "Referente à", include_blank: false %>
+      <div class="modal-body">
+        <%= simple_form_for :recibo, url: recibos_path, method: :get do |f| %>
+          <div class="row">
+            <div class="col">
+              <%= f.input :id, as: :integer, label: false, placeholder: "Número do recibo" %>
+            </div>
+            <div class="col-auto">
+              <%= button_tag type: :submit, class: "btn btn-primary control-bttn" do %>
+                <%= fa_icon(:search) %>
+              <% end %>
+            </div>
           </div>
-          <div class="col">
-            <%= f.input :empresa, label: "Empresa de interesse", include_blank: false %>
-            <%= f.input :favorecido, label: "Favorecido de interesse", include_blank: false %>
-            <%= f.input :usuario, label: "Usuário de interesse", include_blank: false %>
+        <% end %> <hr>
+        <%= simple_form_for :recibo, url: recibos_path, method: :get do |f| %>
+          <div class="row">
+            <div class="col">
+              <%= f.input :min_data, input_html: {"data-mask" => '99/99/9999'}, label: false, placeholder: "Data inicial" %>
+              <%= f.input :max_data, input_html: {"data-mask" => '99/99/9999'}, :data => {:mask=> '99/99/9999'}, label: false, placeholder: "Data final" %>
+            </div>
+            <div class="col-auto">
+              <%= button_tag type: :submit, class: "btn btn-primary control-bttn" do %>
+                <%= fa_icon(:search) %>
+              <% end %>
+            </div>
           </div>
-        </div>
-        <div class="modal-footer">
-            <%= f.submit "Aplicar", class: "btn btn-primary control-bttn", value: ""%>
-        </div>
-      <% end %>
+        <% end %> <hr>
+        <%= simple_form_for :recibo, url: recibos_path, method: :get do |f| %>
+          <div class="row">
+            <div class="col">
+              <%= f.input :referente, as: :text,  label: false, placeholder: "Referente à" %>
+            </div>
+            <div class="col-auto">
+              <%= button_tag type: :submit, class: "btn btn-primary control-bttn" do %>
+                <%= fa_icon(:search) %>
+              <% end %>
+            </div>
+          </div>
+        <% end %> <hr>
+        <%= simple_form_for :recibo, url: recibos_path, method: :get do |f| %>
+          <div class="row">
+            <div class="col">
+              <%= f.input :empresa, label: false, placeholder: "Nome da empresa" %>
+            </div>
+            <div class="col-auto">
+              <%= button_tag type: :submit, class: "btn btn-primary control-bttn" do %>
+                <%= fa_icon(:search) %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <%= simple_form_for :recibo, url: recibos_path, method: :get do |f| %>
+        <hr>
+          <div class="row">
+            <div class="col">
+              <%= f.input :favorecido, label: false, placeholder: "Nome do favorecido" %>
+            </div>
+            <div class="col-auto">
+              <%= button_tag type: :submit, class: "btn btn-primary control-bttn" do %>
+                <%= fa_icon(:search) %>
+              <% end %>
+            </div>
+          </div>
+        <% end %> <hr>
+        <% if current_user.isAdmin %>
+          <%= simple_form_for :recibo, url: recibos_path, method: :get do |f| %>
+            <div class="row">
+              <div class="col">
+                <%= f.input :usuario, label: false, placeholder: "Nome do usuário" %>
+              </div>
+              <div class="col-auto">
+                <%= button_tag type: :submit, class: "btn btn-primary control-bttn" do %>
+                  <%= fa_icon(:search) %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+        <%= link_to "Remover Filtros", recibos_path, class: "btn btn-danger btn-block"%>
+      </div>
     </div>
   </div>
 </div>
@@ -40,46 +105,33 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Data</th>
-          <th scope="col">Valor</th>
-          <th scope="col">Referente</th>
-          <th scope="col">Empresa</th>
-          <th scope="col">Favorecido</th>
-          <% if current_user.isAdmin %> <th scope="col">Usuário</th> <% end %>
-          <th scope="col" colspan="<%= current_user.isAdmin ? 2 : 1 %>"></th>
-          <th scope="col"><%= link_to fa_icon("filter"), "", class: "btn btn-primary control-bttn", "data-toggle" => "modal", "data-target" => "#filter-form" %></th>
-          <th scope="col"><%= link_to fa_icon("plus-circle"), new_recibo_path, class: "btn btn-primary control-bttn" %></th>
+          <th scope="col" class="col-auto">#</th>
+          <th scope="col" class="col-auto">Data</th>
+          <th scope="col" class="col-auto">Valor</th>
+          <th scope="col" class="col">Referente</th>
+          <th scope="col" class="col">Empresa</th>
+          <th scope="col" class="col">Favorecido</th>
+          <% if current_user.isAdmin %> <th scope="col" class="col">Usuário</th> <% end %>
+          <th scope="col" class="col-auto" colspan="<%= current_user.isAdmin ? 2 : 1 %>"></th>
+          <th scope="col" class="col-auto"><%= link_to fa_icon("filter"), "", class: "btn btn-primary control-bttn", "data-toggle" => "modal", "data-target" => "#filter-form" %></th>
+          <th scope="col" class="col-auto"><%= link_to fa_icon("plus-circle"), new_recibo_path, class: "btn btn-primary control-bttn" %></th>
         </tr>
       </thead>
-
-      <colgroup>
-        <col style=":width: 4em">
-        <col style=":width: 10em">
-        <col style=":width: 6em">
-        <col style=":width: 40em">
-        <col style=":width: 20em">
-        <col style=":width: 20em">
-        <% if current_user.isAdmin %> <col style=":width: 20em"> <col style=":width: 3em"> <% end %>
-        <col style=":width: 3em">
-        <col style=":width: 3em">
-        <col style=":width: 3em">
-      </colgroup>
 
       <tbody>
         <% @recibos.each do |recibo| %>
           <tr scope="row">
-            <td><%= recibo.id %></td>
-            <td><%= localize recibo.data %></td>
-            <td><%= number_to_currency recibo.valor %></td>
-            <td><%= recibo.referente %></td>
-            <td><%= link_to recibo.empresa.nome, empresa_path(recibo.empresa) %></td>
-            <td><%= link_to recibo.favorecido.nome, favorecido_path(recibo.favorecido) %></td>
-            <% if current_user.isAdmin %> <td><%= link_to recibo.usuario.nome, usuario_path(recibo.usuario) %></td> <% end %>
-            <td><%= link_to fa_icon("info-circle"), recibo, class: "btn btn-info control-bttn" %></td>
-            <td><%= link_to fa_icon(:print), recibo_path(recibo, :format => :pdf), class: "btn btn-info control-bttn" %></td>
-            <td><%= link_to fa_icon(:pencil), edit_recibo_path(recibo), class: "btn btn-warning control-bttn" %></td>
-            <% if current_user.isAdmin %> <td><%= link_to fa_icon(:trash), recibo, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger control-bttn" %></td> <% end %>
+            <td class="col-auto"><%= recibo.id %></td>
+            <td class="col-auto"><%= localize recibo.data %></td>
+            <td class="col-auto"><%= number_to_currency recibo.valor %></td>
+            <td class="col"><%= recibo.referente %></td>
+            <td class="col"><%= link_to recibo.empresa.nome, empresa_path(recibo.empresa) %></td>
+            <td class="col"><%= link_to recibo.favorecido.nome, favorecido_path(recibo.favorecido) %></td>
+            <% if current_user.isAdmin %> <td class="col"><%= link_to recibo.usuario.nome, usuario_path(recibo.usuario) %></td> <% end %>
+            <td class="col-auto"><%= link_to fa_icon("info-circle"), recibo, class: "btn btn-info control-bttn" %></td>
+            <td class="col-auto"><%= link_to fa_icon(:print), recibo_path(recibo, :format => :pdf), class: "btn btn-info control-bttn" %></td>
+            <td class="col-auto"><%= link_to fa_icon(:pencil), edit_recibo_path(recibo), class: "btn btn-warning control-bttn" %></td>
+            <% if current_user.isAdmin %> <td class="col-auto"><%= link_to fa_icon(:trash), recibo, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger control-bttn" %></td> <% end %>
           </tr>
         <% end %>
       </tbody>

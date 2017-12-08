@@ -79,3 +79,6 @@ gem "bootstrap-table-rails", "~> 1.11"
 
 # Added at 2017-12-07 17:25:24 +0000 by ubuntu:
 gem "kaminari", "~> 1.1"
+
+# Added at 2017-12-08 13:20:44 +0000 by ubuntu:
+gem "jasny-bootstrap-rails", "~> 3.1"

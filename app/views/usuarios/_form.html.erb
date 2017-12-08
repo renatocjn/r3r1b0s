@@ -21,7 +21,7 @@
       <%= button_tag type: 'submit', class: "btn btn-primary" do %>
         <i class="fa fa-floppy-o" aria-hidden="true"></i>
       <% end %> <br>
-      <%= link_to fa_icon(:undo), (current_user.isAdmin ? usuarios_path : recibos_path), class: "btn btn-secondary" if current_user.isAdmin %>
+      <%= link_to fa_icon(:undo), (current_user.isAdmin ? usuarios_path : recibos_path), class: "btn btn-secondary" %>
     </div>
   </div>
 <% end %>

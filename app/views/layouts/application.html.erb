@@ -7,14 +7,13 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= favicon_link_tag %>
-
   <%= csrf_meta_tags %>
 </head>
 <body>
 
 <div class="container">
   <% if session[:user_id] %>
-    <nav class="navbar navbar-toggleable-md navbar-expand-xl navbar-light bg-faded px-0">
+    <nav class="navbar navbar-toggleable-md navbar-expand-xl navbar-light bg-light mb-4 rounded">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -53,7 +52,7 @@
 
   <div class="content" style="min-height: 600px">
     <% unless notice.nil? %>
-      <div class="alert alert-info alert-dismissible fade show w-50 mx-auto text-center" role="alert">
+      <div class="alert alert-info alert-dismissible fade show w-50 mx-auto text-center" role="alert" style="min-width: 20em">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -64,7 +63,7 @@
     <%= yield %>
   </div>
 
-<footer class="footer text-right m-3 bg-faded">
+<footer class="footer text-right m-3 bg-faded"> <hr>
   <span class="text-muted"> Recibos Casebrás | contato: helpdesk@casebrás.com.br </span>
 </footer>
 

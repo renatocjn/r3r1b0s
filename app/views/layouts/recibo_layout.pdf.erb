@@ -8,13 +8,15 @@
       height: 11cm;
       border-style: solid;
       border-width: 2px;
-      margin: 1.5cm auto;
+      margin: .8cm auto;
       padding: 0.5cm;
+      position: relative;
     }
 
     .num-via {
       float: left;
-      width: 2cm;
+      width: 10em;
+      display: inline;
     }
 
     .logo-div {
@@ -25,26 +27,23 @@
       float: right;
       border-style: solid;
       border-width: 0px;
+      display:inline;
     }
 
     .recibo-titulo, .recibo-valor {
       font-size: 14pt;
+      font-weight: bold;
     }
 
     .recibo-titulo {
-      position: relative;
-      top: 3.15cm;
-      float: left;
-      font-weight: bold;
-      right: 1.5cm;
+      position: absolute;
+      top: 2.7cm;
     }
 
     .recibo-valor {
-      position: relative;
-      top: 2.5cm;
-      left: 7cm;
-      float: right;
-      font-weight: bold;
+      position: absolute;
+      top: 2.7cm;
+      right: 3cm;
     }
 
     .recibo-texto, .recibo-assinatura {
@@ -52,26 +51,27 @@
     }
 
     .recibo-texto {
-      position: relative;
-      top: 3cm;
-      float: left;
+      position: absolute;
+      top: 4.5cm;
       text-align: justify;
+      padding-right: inherit;
     }
 
     .recibo-assinatura {
-      position: relative;
-      top: 4.5cm;
-      float: left;
+      position: absolute;
+      top: 8.3cm;
       width: 100%;
+      padding-right: inherit;
     }
 
-    .recibo-assinatura .favorecido{
+    .recibo-assinatura .favorecido,
+    .recibo-assinatura .data{
       text-align: center;
     }
 
     .recibo-assinatura hr {
       width: 8cm;
-      margin-top: 1cm;
+      margin-top: 1.5cm;
     }
 
     .recibo-assinatura .favorecido .cpf_cnpj,
@@ -86,17 +86,14 @@
     /*.recibo-assinatura .favorecido .rg {*/
     /*  float: right;*/
     /*}*/
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"> </script>
 
-    img {
-      display: none;
+    hr.linha_entre_vias {
+      border-top: 1px dashed #000;
     }
 
-
-    img[src] {
-      display: block;
-    }
   </style>
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"> </script>
 </head>
 <body>
 

@@ -65,7 +65,7 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col" class="col">Nome</th>
+          <th scope="col" class="col">Nome do usuário</th>
           <th scope="col" class="col">E-mail</th>
           <th scope="col" class="cpf-cnpj-col">CPF</th>
           <th scope="col" class="col-auto">Administrador?</th>
@@ -81,7 +81,7 @@
             <td class="col"><%= usuario.nome %></td>
             <td class="col"><%= usuario.email %></td>
             <td class="cpf-cnpj-col"><%= usuario.cpf %></td>
-            <td class="col-auto"><%= usuario.isAdmin ? fa_icon(:check) : fa_icon(:times) %></td>
+            <td class="col-auto"><%= usuario.isAdmin ? fa_icon(:check) + " Sim" : fa_icon(:times) + " Não" %></td>
             <td class="col-auto"><%= link_to fa_icon("info-circle"), usuario, class: "btn btn-info control-bttn" %></td>
             <td class="col-auto"><%= link_to fa_icon(:pencil), edit_usuario_path(usuario), class: "btn btn-warning control-bttn" %></td>
             <% if current_user.isAdmin %>

@@ -45,6 +45,11 @@ group :development do
   gem 'spring'
 end
 
+group :production do
+  gem 'passenger'
+  gem 'mysql2'
+end
+
 
 # Added at 2017-12-01 16:52:54 +0000 by ubuntu:
 gem "simple_form", "~> 3.5"

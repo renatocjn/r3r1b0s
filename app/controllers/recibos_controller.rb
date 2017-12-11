@@ -64,7 +64,7 @@ class RecibosController < ApplicationController
 
   # GET /recibos/new
   def new
-    @recibo = Recibo.new
+    @recibo = Recibo.new(:data => Date.today)
   end
 
   # GET /recibos/1/edit

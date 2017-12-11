@@ -125,9 +125,9 @@
             <td class="col-auto"><%= localize recibo.data %></td>
             <td class="col-auto"><%= number_to_currency recibo.valor %></td>
             <td class="col"><%= recibo.referente %></td>
-            <td class="col"><%= link_to recibo.empresa.nome, empresa_path(recibo.empresa) %></td>
-            <td class="col"><%= link_to recibo.favorecido.nome, favorecido_path(recibo.favorecido) %></td>
-            <% if current_user.isAdmin %> <td class="col"><%= link_to recibo.usuario.nome, usuario_path(recibo.usuario) %></td> <% end %>
+            <td class="col"><%= recibo.empresa.nome %></td>
+            <td class="col"><%= recibo.favorecido.nome %></td>
+            <% if current_user.isAdmin %> <td class="col"><%= recibo.usuario.nome %></td> <% end %>
             <td class="col-auto"><%= link_to fa_icon("info-circle"), recibo, class: "btn btn-info control-bttn" %></td>
             <td class="col-auto"><%= link_to fa_icon(:print), recibo_path(recibo, :format => :pdf), class: "btn btn-info control-bttn" %></td>
             <td class="col-auto"><%= link_to fa_icon(:pencil), edit_recibo_path(recibo), class: "btn btn-warning control-bttn" %></td>

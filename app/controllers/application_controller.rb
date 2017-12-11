@@ -13,6 +13,6 @@ class ApplicationController < ActionController::Base
   end
 
   def is_admin
-    redirect_to :root, notice: "Acesso negado" unless current_user.isAdmin
+    redirect_to :root unless current_user.isAdmin
   end
 end

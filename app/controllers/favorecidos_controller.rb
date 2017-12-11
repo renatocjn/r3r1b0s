@@ -37,7 +37,7 @@ class FavorecidosController < ApplicationController
   # POST /favorecidos.json
   def create
     @favorecido = Favorecido.new(favorecido_params)
-    @favorecido = sanitize_favorecido @favorecido
+    @favorecido = @favorecido
     respond_to do |format|
       if @favorecido.save
         format.html { redirect_to favorecidos_url, notice: 'Favorecido criado com sucesso.' }

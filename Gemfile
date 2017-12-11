@@ -87,6 +87,3 @@ gem "kaminari", "~> 1.1"
 
 # Added at 2017-12-08 13:20:44 +0000 by ubuntu:
 gem "jasny-bootstrap-rails", "~> 3.1"
-
-# Added at 2017-12-11 09:38:05 -0300 by root:
-gem "mysql2", "~> 0.4.10"

@@ -9,10 +9,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def authorize
-    redirect_to '/login', notice: "Acesso negado" unless current_user
+    redirect_to '/login' unless current_user
   end
 
   def is_admin
-    redirect_to :root unless current_user.isAdmin
+    redirect_to :root, notice: "Acesso negado" unless current_user.isAdmin
   end
 end

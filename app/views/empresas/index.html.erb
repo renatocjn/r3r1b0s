@@ -69,7 +69,7 @@
             <td class="col-auto"><%= empresa.info_img.blank? ? fa_icon(:times) + " Não" : fa_icon(:check) + " Sim" %></td>
             <td class="col-auto"><%= link_to fa_icon("info-circle"), empresa, class: "btn btn-info control-bttn" %> </td>
             <td class="col-auto"><%= link_to fa_icon(:pencil), edit_empresa_path(empresa), class: "btn btn-warning control-bttn" %></td>
-            <td class="col-auto"><%= link_to fa_icon(:trash), empresa, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger control-bttn" %></td>
+            <td class="col-auto"><%= link_to fa_icon(:trash), empresa, method: :delete, data: { confirm: 'Você tem certeza? Todos os recibos desta empresa serão apagados!' }, class: "btn btn-danger control-bttn" %></td>
           </tr>
         <% end %>
       </tbody>

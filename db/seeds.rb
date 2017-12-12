@@ -7,10 +7,10 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 ActiveRecord::Base.transaction do
-    Usuario.create(:nome => "Admin", :email => "admin@casebras.com.br", :cpf => "000.000.000-00", :password => "case123", :password_confirmation => "case123", :isAdmin => true)
+    Usuario.create(:nome => "Admin", :email => "admin@casebras.com.br", :cpf => "000.000.000-00", :password => "case123", :password_confirmation => "case123", :isAdmin => true, :isBlocked => false)
 
     if Rails.env.development?
-        Usuario.create(:nome => "User", :email => "user@casebras.com.br", :cpf => "111.111.111-11", :password => "case123", :password_confirmation => "case123", :isAdmin => false)
+        Usuario.create(:nome => "User", :email => "user@casebras.com.br", :cpf => "111.111.111-11", :password => "case123", :password_confirmation => "case123", :isAdmin => false, :isBlocked => false)
 
         Favorecido.create(:nome => "Favorecido com nome extremamento muito bastante longo", :rg => "12341234123", :cpf_cnpj => "074.451.885-76")
         Empresa.create(:nome => "CASPEB - CENTRO ASSISTENCIAL DOS SERVIDORES PUBLICOS DO BRASIL", :cpf_cnpj => "00.802.246/0001-83")

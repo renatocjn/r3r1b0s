@@ -1,20 +1,24 @@
 
 <div class="row">
   <div class="col">
-    <h3>Favorecido: <%= @favorecido.nome %></h3>
+    <h3>Detalhes do favorecido</h3>
   </div>
 </div>
 
 <div class="row">
   <div class="col">
     <p>
-      <label>RG:</label>
+      <label><strong>Nome:</strong></label>
+      <%= @favorecido.nome %>
+    </p>
+    <p>
+      <label><strong>RG:</strong></label>
       <%= @favorecido.rg.nil? ? "Não cadastrado" : @favorecido.rg %>
     </p>
   </div>
   <div class="col">
     <p>
-      <label>CPF/CNPJ:</label>
+      <label><strong>CPF/CNPJ:</strong></label>
       <%= @favorecido.cpf_cnpj %>
     </p>
   </div>

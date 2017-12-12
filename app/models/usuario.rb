@@ -16,10 +16,13 @@ class Usuario < ActiveRecord::Base
         :format => {:with => /[a-zA-Z]+/, :message => "Sua senha deve conter letras e números"}
     validates :password, :format => {:with => /[0-9]+/, :message => "Sua senha deve conter letras e números"}
 
-    validates :isAdmin, :exclusion => {:in => [true, "t", 1, "1", "true", "True"], :message => "Só pode ser atualizado por usuários administradores"}, :unless => :isAdmin
+    # Fazer esta validação no controlador
+    #trueValues = [true, "t", 1, "1", "true", "True", "Sim", "Yes", "S", "Y"]
+    #validates :isAdmin, :exclusion => {:in => trueValues, :message => "Só pode ser atualizado por usuários administradores"}, :unless => :is_admin
+    #validates :isBlocked, :exclusion => {:in => trueValues, :message => "Só pode ser atualizado por usuários administradores"}, :unless => :is_admin
 
     has_secure_password
-    has_many :recibos
+    has_many :recibos, dependent: :destroy
 
     def to_s
         nome

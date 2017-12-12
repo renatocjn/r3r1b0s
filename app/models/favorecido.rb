@@ -7,7 +7,7 @@ class Favorecido < ActiveRecord::Base
         :format => {:with => /([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})/,
                     :message => "Deve seguir o formato: 000.000.000-00 ou 00.000.000/0000-00"}
 
-    has_many :recibos
+    has_many :recibos, dependent: :destroy
 
     def to_s
         nome

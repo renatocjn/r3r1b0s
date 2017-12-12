@@ -55,7 +55,7 @@ class UsuariosController < ApplicationController
     @usuario.isAdmin = false unless current_user.isAdmin #bloqueio de atualização de permissão para usuarios que não são admin
     respond_to do |format|
       if @usuario.update(usuario_params)
-        format.html { redirect_to (@usuario.isAdmin ? usuarios_url : recibos_url), notice: 'Usuário atualizado com sucesso.' }
+        format.html { redirect_to (current_user.isAdmin ? usuarios_url : recibos_url), notice: 'Usuário atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @usuario }
       else
         format.html { render :edit }
@@ -82,7 +82,7 @@ class UsuariosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def usuario_params
-      params.require(:usuario).permit(:nome, :cpf, :email, :password, :password_confirmation, :isAdmin)
+      params.require(:usuario).permit(:nome, :cpf, :email, :password, :password_confirmation, :isAdmin, :isBlocked)
     end
 
     def me_or_admin

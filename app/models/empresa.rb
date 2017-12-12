@@ -8,7 +8,7 @@ class Empresa < ActiveRecord::Base
                     :message => "Deve seguir o formato: 000.000.000-00 ou 00.000.000/0000-00"}
 
 
-    has_many :recibos
+    has_many :recibos, dependent: :destroy
 
     attachment :info_img, content_type: ["image/jpeg", "image/png", "image/gif"]
     #validates :info_img, :presence => {:message => "Por favor forneça um selo com as informações da empresa"}

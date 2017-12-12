@@ -3,13 +3,15 @@ class SessionsController < ApplicationController
 
   def new
   end
-  
+
   def create
     user = Usuario.find_by_email(params[:email])
-    
+
     if user.nil?
-      redirect_to '/', notice: "Usuário não encontrado"
-    elsif user && user.authenticate(params[:password])
+      redirect_to '/login', notice: "Usuário não encontrado"
+    elsif user.isBlocked
+      redirect_to '/login', notice: "Usuário bloqueado"
+    elsif user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect_to '/'
     else

@@ -1,7 +1,7 @@
 
 <div class="row">
   <div class="col">
-      <h3>Usuários</h3>
+      <h3>Lista de Usuários</h3>
   </div>
   <div class="col-4 d-flex justify-content-center">
     <%= paginate @usuarios %>
@@ -69,6 +69,7 @@
           <th scope="col" class="col">E-mail</th>
           <th scope="col" class="cpf-cnpj-col">CPF</th>
           <th scope="col" class="col-auto">Administrador?</th>
+          <th scope="col" class="col-auto">Bloqueado?</th>
           <% if current_user.isAdmin %> <th scope="col"></th> <% end %>
           <th scope="col" class="col-auto"><%= link_to fa_icon("filter"), "", class: "btn btn-primary control-bttn", "data-toggle" => "modal", "data-target" => "#filter-form" %></th>
           <th scope="col" class="col-auto"><%= link_to fa_icon("plus-circle"), new_usuario_path, class: "btn btn-primary control-bttn" %></th>
@@ -82,10 +83,11 @@
             <td class="col"><%= usuario.email %></td>
             <td class="cpf-cnpj-col"><%= usuario.cpf %></td>
             <td class="col-auto"><%= usuario.isAdmin ? fa_icon(:check) + " Sim" : fa_icon(:times) + " Não" %></td>
+            <td class="col-auto"><%= usuario.isBlocked ? fa_icon(:check) + " Sim" : fa_icon(:times) + " Não" %></td>
             <td class="col-auto"><%= link_to fa_icon("info-circle"), usuario, class: "btn btn-info control-bttn" %></td>
             <td class="col-auto"><%= link_to fa_icon(:pencil), edit_usuario_path(usuario), class: "btn btn-warning control-bttn" %></td>
             <% if current_user.isAdmin %>
-              <td class="col-auto"><%= link_to fa_icon(:trash), usuario, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger control-bttn" %></td>
+              <td class="col-auto"><%= link_to fa_icon(:trash), usuario, method: :delete, data: { confirm: 'Você tem certeza? Todos os recibos deste usuário serão apagados!' }, class: "btn btn-danger control-bttn" %></td>
             <% end %>
           </tr>
         <% end %>

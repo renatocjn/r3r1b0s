@@ -81,7 +81,7 @@
             <td class="cpf-cnpj-col"><%= favorecido.cpf_cnpj %></td>
             <td class="col-auto"><%= link_to fa_icon("info-circle"), favorecido, class: "btn btn-info control-bttn" %></td>
             <td class="col-auto"><%= link_to fa_icon(:pencil), edit_favorecido_path(favorecido), class: "btn btn-warning control-bttn" %></td>
-            <td class="col-auto"><%= link_to fa_icon(:trash), favorecido, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger control-bttn" %></td>
+            <td class="col-auto"><%= link_to fa_icon(:trash), favorecido, method: :delete, data: { confirm: 'Você tem certeza? Todos os recibos deste favorecido serão apagados!' }, class: "btn btn-danger control-bttn" %></td>
           </tr>
         <% end %>
       </tbody>

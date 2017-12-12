@@ -1,26 +1,35 @@
 
 <div class="row">
   <div class="col">
-    <h3>Usuário: <%= @usuario.nome %></h3>
+    <h3>Detalhes do usuário</h3>
   </div>
 </div>
 
 <div class="row">
   <div class="col">
     <p>
-      <label>CPF:</label>
+      <label><strong>Nome:</strong></label>
+      <%= @usuario.nome %>
+    </p>
+    <p>
+      <label><strong>CPF:</strong></label>
       <%= @usuario.cpf %>
     </p>
   </div>
   <div class="col">
     <p>
-      <label>E-mail:</label>
+      <label><strong>E-mail:</strong></label>
       <%= @usuario.email %>
     </p>
 
     <p>
-      <label>Usuário Administrador?</label>
+      <label><strong>Usuário Administrador?</strong></label>
       <%= @usuario.isAdmin ? "Sim" : "Não" %>
+    </p>
+
+    <p>
+      <label><strong>Usuário Bloqueado?</strong></label>
+      <%= @usuario.isBlocked ? "Sim" : "Não" %>
     </p>
   </div>
   <div class="col-auto control-bttns">

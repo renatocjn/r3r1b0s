@@ -29,18 +29,18 @@
   </div>
   <div class="col">
     <p>
-      <label>Empresa:</label>
+      <label><strong>Empresa:</strong></label>
       <%= link_to @recibo.empresa.nome, @recibo.empresa %>
     </p>
 
     <p>
-      <label>Favorecido:</label>
+      <label><strong>Favorecido:</strong></label>
       <%= link_to @recibo.favorecido.nome, @recibo.favorecido %>
     </p>
 
     <% if current_user.isAdmin %>
       <p>
-        <label>Usuário responsável:</label>
+        <label><strong>Usuário responsável:</strong></label>
         <%= link_to @recibo.usuario.nome, @recibo.usuario %>
       </p>
     <% end %>
@@ -49,7 +49,7 @@
       <% if @recibo.recibo_assinado.nil? %>
         <div class="alert alert-warning"> O Recibo assinado ainda não foi salvo </div>
       <% else %>
-        <%= link_to "Download do recibo assinado", attachment_url(@recibo, :recibo_assinado), class: "btn btn-sm btn-info" %>
+        <%= link_to "Download do recibo assinado", attachment_url(@recibo, :recibo_assinado), class: "btn btn-info" %>
       <% end %>
     </p>
   </div>

@@ -10,7 +10,7 @@
     <div class="row">
       <div class="col">
         <%= f.input :data, disabled: d, label: "Data do recibo", input_html: {class: "date_inputs", value: localize(@recibo.data)}, as: :string %>
-        <%= f.input :valor, disabled: d, label: "Valor do recibo", input_html: {class: "money_inputs"} %>
+        <%= f.input :valor, disabled: d, label: "Valor do recibo (R$)", input_html: {class: "money_inputs"} %>
         <%= f.input :valor_extenso, disabled: d, label: "Valor por extenso" %>
       </div>
 

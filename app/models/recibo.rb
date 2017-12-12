@@ -6,8 +6,8 @@ class Recibo < ActiveRecord::Base
     validates :data, :presence => {:message => "Informe a data deste recibo"}
 
     validates :valor,
-        :presence => {:message => "Informe o valor deste recibo"},
-        :numericality => {:greater_then => 0, :message => "O valor do recibo deve ser positivo"}
+        :presence => {:message => "Informe o valor em reais deste recibo"},
+        :numericality => {:greater_than => 0, :message => "O valor do recibo deve ser positivo"}
 
     validates :valor_extenso, :presence => {:message => "Informe o valor por extenso deste recibo"}
     validates :referente, :presence => {:message => "Informe o que este recibo é referente"}
@@ -19,10 +19,6 @@ class Recibo < ActiveRecord::Base
     attachment :recibo_assinado, content_type: ["image/jpeg", "image/png", "image/gif", "application/pdf"]
 
     validate :validar_caracteres_para_pdf
-
-    def recibo_assinado_ja_enviado
-      recibo_assinado.nil?
-    end
 
     def to_s
         "Recibo Nº #{id}"

@@ -10,11 +10,12 @@
       <%= f.input :nome %>
       <%= f.input :cpf, input_html: {class: "cpf_inputs"}, label: "CPF" %>
       <%= f.input :email, placeholder: "usuario@dominio.com.br", label: "E-mail" %>
+      <%= f.input :isAdmin, as: :select, include_blank: false, label: "Usuário administrador?" if current_user.isAdmin %>
     </div>
     <div class="col">
+      <%= f.input :updating_password, as: :select, label: "Deseja atualizar a senha?", include_blank: false unless @usuario.new_record? %>
       <%= f.input :password, label: "Senha" %>
-      <%= f.input :password_confirmation, label: "Confirme sua senha" %>
-      <%= f.input :isAdmin, as: :select, include_blank: false, label: "Usuário administrador?" if current_user.isAdmin %>
+      <%= f.input :password_confirmation, label: "Confirme sua senha", error: "Não é igual a senha" %>
       <%= f.input :isBlocked, as: :select, include_blank: false, label: "Usuário bloqueado?" if current_user.isAdmin %>
     </div>
 

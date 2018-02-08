@@ -1,4 +1,9 @@
 class Usuario < ActiveRecord::Base
+    attr_accessor :updating_password
+
+    after_initialize do
+        self.updating_password ||= false
+    end
 
     validates :nome, :presence => {:message => "Por favor, forneça o nome do usuário"}
 
@@ -13,8 +18,9 @@ class Usuario < ActiveRecord::Base
 
     validates :password,
         :length => {:minimum => 6, :message => "Sua senha deve conter pelo menos 6 caracteres"},
-        :format => {:with => /[a-zA-Z]+/, :message => "Sua senha deve conter letras e números"}
-    validates :password, :format => {:with => /[0-9]+/, :message => "Sua senha deve conter letras e números"}
+        :format => {:with => /[a-zA-Z]+/, :message => "Sua senha deve conter letras e números"}, if: :should_update_password
+
+    validates :password, :format => {:with => /[0-9]+/, :message => "Sua senha deve conter letras e números"}, if: :should_update_password
 
     # Fazer esta validação no controlador
     #trueValues = [true, "t", 1, "1", "true", "True", "Sim", "Yes", "S", "Y"]
@@ -26,5 +32,9 @@ class Usuario < ActiveRecord::Base
 
     def to_s
         nome
+    end
+
+    def should_update_password
+        new_record? or updating_password == "true"
     end
 end

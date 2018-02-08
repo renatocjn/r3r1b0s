@@ -87,3 +87,6 @@ gem "kaminari", "~> 1.1"
 
 # Added at 2017-12-08 13:20:44 +0000 by ubuntu:
 gem "jasny-bootstrap-rails", "~> 3.1"
+
+# Added at 2018-02-08 13:21:57 +0000 by ubuntu:
+gem "jquery-ui-rails", "~> 6.0"

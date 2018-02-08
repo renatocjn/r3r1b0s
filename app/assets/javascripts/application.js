@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require refile
+//= require jquery-ui/effects/effect-shake
 //= require_tree ../../../vendor/assets/javascripts
 //= require_tree .
 

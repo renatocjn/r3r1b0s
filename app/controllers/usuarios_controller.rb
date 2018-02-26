@@ -23,6 +23,7 @@ class UsuariosController < ApplicationController
   # GET /usuarios/1
   # GET /usuarios/1.json
   def show
+    @ultimos_recibos = @usuario.recibos.order(data: :desc)
   end
 
   # GET /usuarios/new

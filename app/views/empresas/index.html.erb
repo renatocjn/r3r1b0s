@@ -52,24 +52,24 @@
     <table class="table table-hover table-no-bordered">
       <thead>
         <tr>
-          <th scope="col" class="col">Nome da empresa</th>
-          <th scope="col" class="cpf-cnpj-col">CPF/CNPJ</th>
-          <th scope="col" class="col-auto">Selo cadastrado</th>
-          <th scope="col" class="col-auto"></th>
-          <th scope="col" class="col-auto"> <%= link_to fa_icon(:filter), "", class: "btn btn-primary control-bttn", "data-toggle" => "modal", "data-target" => "#filter-form" %> </th>
-          <th scope="col" class="col-auto"> <%= link_to fa_icon("plus-circle"), new_empresa_path, class: "btn btn-primary control-bttn" %> </th>
+          <th scope="col"><%= fa_icon("building", text:"Nome da empresa")%></th>
+          <th scope="col" class="cpf-cnpj-col"><%= fa_icon("id-card", text:"CPF/CNPJ")%></th>
+          <th scope="col"><%= fa_icon("image", text:"Selo cadastrado")%></th>
+          <th scope="col"></th>
+          <th scope="col"> <%= link_to fa_icon(:filter), "", class: "btn btn-primary control-bttn", "data-toggle" => "modal", "data-target" => "#filter-form" %> </th>
+          <th scope="col"> <%= link_to fa_icon("plus-circle"), new_empresa_path, class: "btn btn-primary control-bttn" %> </th>
         </tr>
       </thead>
 
       <tbody>
         <% @empresas.each do |empresa| %>
           <tr scope="row">
-            <td class="col"><%= empresa.nome %></td>
+            <td><%= empresa.nome %></td>
             <td class="cpf-cnpj-col"><%= empresa.cpf_cnpj %></td>
-            <td class="col-auto"><%= empresa.info_img.blank? ? fa_icon(:times) + " Não" : fa_icon(:check) + " Sim" %></td>
-            <td class="col-auto"><%= link_to fa_icon("info-circle"), empresa, class: "btn btn-info control-bttn" %> </td>
-            <td class="col-auto"><%= link_to fa_icon(:pencil), edit_empresa_path(empresa), class: "btn btn-warning control-bttn" %></td>
-            <td class="col-auto"><%= link_to fa_icon(:trash), empresa, method: :delete, data: { confirm: 'Você tem certeza? Todos os recibos desta empresa serão apagados!' }, class: "btn btn-danger control-bttn" %></td>
+            <td><%= empresa.info_img.blank? ? fa_icon(:times) + " Não" : fa_icon(:check) + " Sim" %></td>
+            <td><%= link_to fa_icon("info-circle"), empresa, class: "btn btn-info control-bttn" %> </td>
+            <td><%= link_to fa_icon("pencil-alt"), edit_empresa_path(empresa), class: "btn btn-warning control-bttn" %></td>
+            <td><%= link_to fa_icon(:trash), empresa, method: :delete, data: { confirm: 'Você tem certeza? Todos os recibos desta empresa serão apagados!' }, class: "btn btn-danger control-bttn" %></td>
           </tr>
         <% end %>
       </tbody>

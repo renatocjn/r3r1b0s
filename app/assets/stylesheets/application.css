@@ -11,7 +11,6 @@
  * file per style scope.
  *
  *= require_tree .
- *= require font-awesome
  *= require_tree ../../../vendor/assets/stylesheets
  *= require_self
  */
@@ -47,4 +46,12 @@ td.col-auto {
 
 .form-inline div {
   display: inline-block
+}
+
+label {
+  font-weight: bold;
+}
+
+th {
+  white-space: nowrap
 }

@@ -8,32 +8,66 @@
 <div class="row">
   <div class="col">
     <p>
-      <label><strong>Nome:</strong></label>
+      <label><strong><%=fa_icon("user", text: "Nome:")%></strong></label>
       <%= @usuario.nome %>
     </p>
     <p>
-      <label><strong>CPF:</strong></label>
+      <label><strong><%=fa_icon("id-card", text: "CPF:")%></strong></label>
       <%= @usuario.cpf %>
     </p>
   </div>
   <div class="col">
     <p>
-      <label><strong>E-mail:</strong></label>
+      <label><strong><%=fa_icon("at", text: "E-mail:")%></strong></label>
       <%= @usuario.email %>
     </p>
 
     <p>
-      <label><strong>Usuário Administrador?</strong></label>
+      <label><strong><%=fa_icon("user-secret", text: "Administrador?")%></strong></label>
       <%= @usuario.isAdmin ? "Sim" : "Não" %>
     </p>
 
     <p>
-      <label><strong>Usuário Bloqueado?</strong></label>
+      <label><strong><%=fa_icon("lock", text: "Bloqueado?")%></strong></label>
       <%= @usuario.isBlocked ? "Sim" : "Não" %>
     </p>
   </div>
   <div class="col-auto control-bttns">
     <%= link_to fa_icon(:list), (current_user.isAdmin ? usuarios_path : recibos_path), class: "btn btn-secondary" %> <br>
-    <%= link_to fa_icon(:pencil), edit_usuario_path(@usuario), class: "btn btn-warning" %> <br>
+    <%= link_to fa_icon("pencil-alt"), edit_usuario_path(@usuario), class: "btn btn-warning" %> <br>
   </div>
 </div>
+
+<hr>
+
+<% recibos = @ultimos_recibos.page(params[:page]).per(7) %>
+
+<h5 class="text-center"><%= fa_icon("file-alt", text: "Últimos Recibos")%></h5>
+<table class="table table-sm">
+  <tr>
+    <th scope="col"> <%= fa_icon("calendar-alt", text: "Data")%> </th>
+    <th scope="col"> <%= fa_icon("money-bill-alt", text: "Valor")%> </th>
+    <th scope="col"> <%= fa_icon("building", text: "Empresa")%> </th>
+    <th scope="col"> <%= fa_icon("handshake", text: "Favorecido")%> </th>
+    <th scope="col"> <%= fa_icon("comments", text: "Referente")%> </th>
+    <th scope="col"></th>
+  </tr>
+  <% recibos.each do |r| %>
+    <tr scope="row">
+      <td> <%= localize r.data %> </td>
+      <td> <%= number_to_currency r.valor %> </td>
+      <td> <%= link_to r.empresa, r.empresa, class: "text-info" %> </td>
+      <td> <%= link_to r.favorecido, r.favorecido, class: "text-info" %> </td>
+      <td> <%= r.referente %> </td>
+      <td> <%= link_to fa_icon("chevron-circle-right"), r, class: "btn btn-info control-bttn" %> </td>
+    </tr>
+  <% end %>
+  <tr scope="row">
+    <td colspan="6">
+      <div class="row">
+        <div class="col"> <%= page_entries_info recibos %> </div>
+        <div class="col-auto mr-4"> <%= paginate recibos %> </div>
+      </div>
+    </td>
+  </tr>
+</table>

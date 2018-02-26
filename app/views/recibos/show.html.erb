@@ -8,54 +8,54 @@
 <div class="row">
   <div class="col">
     <p>
-      <label>Data:</label>
+      <label><%=fa_icon("calendar-alt", text: "Data:")%></label>
       <%= localize @recibo.data %>
     </p>
 
     <p>
-      <label>Valor do recibo:</label>
+      <label><%=fa_icon("money-bill-alt", text: "Valor do recibo:")%></label>
       <%= number_to_currency @recibo.valor %>
     </p>
 
     <p>
-      <label>Valor por extenso:</label>
+      <label><%=fa_icon("money-bill-alt", text: "Valor por extenso:")%></label>
       <%= @recibo.valor_extenso %>
     </p>
 
     <p>
-      <label>Referente à:</label>
+      <label><%=fa_icon("comments", text: "Referente à:")%></label>
       <%= @recibo.referente %>
     </p>
   </div>
   <div class="col">
     <p>
-      <label><strong>Empresa:</strong></label>
-      <%= link_to @recibo.empresa.nome, @recibo.empresa %>
+      <label><strong><%=fa_icon("building", text: "Empresa:")%></strong></label>
+      <%= link_to @recibo.empresa.nome, @recibo.empresa, class: "text-info" %>
     </p>
 
     <p>
-      <label><strong>Favorecido:</strong></label>
-      <%= link_to @recibo.favorecido.nome, @recibo.favorecido %>
+      <label><strong><%=fa_icon("handshake", text: "Favorecido:")%></strong></label>
+      <%= link_to @recibo.favorecido.nome, @recibo.favorecido, class: "text-info" %>
     </p>
 
     <% if current_user.isAdmin %>
       <p>
-        <label><strong>Usuário responsável:</strong></label>
-        <%= link_to @recibo.usuario.nome, @recibo.usuario %>
+        <label><strong><%=fa_icon("user", text: "Usuário responsável:")%></strong></label>
+        <%= link_to @recibo.usuario.nome, @recibo.usuario, class: "text-info" %>
       </p>
     <% end %>
 
     <p>
       <% if @recibo.recibo_assinado.nil? %>
-        <div class="alert alert-warning"> O Recibo assinado ainda não foi salvo </div>
+        <div class="alert alert-warning"> <%=fa_icon("exclamation-circle", text: "O Recibo assinado ainda não foi salvo")%></div>
       <% else %>
-        <%= link_to "Download do recibo assinado", attachment_url(@recibo, :recibo_assinado), class: "btn btn-info" %>
+        <%= link_to fa_icon("external-link", text: "Download do recibo assinado", right: true), attachment_url(@recibo, :recibo_assinado), class: "btn btn-sm btn-info" %>
       <% end %>
     </p>
   </div>
   <div class="col-auto control-bttns">
     <%= link_to fa_icon(:list), recibos_path, class: "btn btn-secondary" %> <br>
-    <%= link_to fa_icon(:pencil), edit_recibo_path(@recibo), class: "btn btn-warning" %> <br>
+    <%= link_to fa_icon("pencil-alt"), edit_recibo_path(@recibo), class: "btn btn-warning" %> <br>
     <%= link_to fa_icon(:print), recibo_path(@recibo, :format => :pdf), class: "btn btn-info" %> <br>
   </div>
 </div>

@@ -8,22 +8,54 @@
 <div class="row">
   <div class="col">
     <p>
-      <label><strong>Nome:</strong></label>
+      <label><strong><%=fa_icon("handshake", text: "Nome:")%></strong></label>
       <%= @favorecido.nome %>
-    </p>
-    <p>
-      <label><strong>RG:</strong></label>
-      <%= @favorecido.rg.nil? ? "Não cadastrado" : @favorecido.rg %>
     </p>
   </div>
   <div class="col">
     <p>
-      <label><strong>CPF/CNPJ:</strong></label>
+      <label><strong><%=fa_icon("id-card", text: "CPF/CNPJ:")%></strong></label>
       <%= @favorecido.cpf_cnpj %>
+    </p>
+    <p>
+      <label><strong><%=fa_icon("id-card", text: "RG:")%></strong></label>
+      <%= @favorecido.rg.nil? ? "Não cadastrado" : @favorecido.rg %>
     </p>
   </div>
   <div class="col-auto control-bttns">
     <%= link_to fa_icon(:list), favorecidos_path, class: "btn btn-secondary" %> <br>
-    <%= link_to fa_icon(:pencil), edit_favorecido_path(@favorecido), class: "btn btn-warning" %> <br>
+    <%= link_to fa_icon("pencil-alt"), edit_favorecido_path(@favorecido), class: "btn btn-warning" %> <br>
   </div>
 </div>
+
+<hr>
+
+<% recibos = @ultimos_recibos.page(params[:page]).per(7) %>
+
+<h5 class="text-center"><%= fa_icon("file-alt", text: "Últimos Recibos")%></h5>
+<table class="table table-sm">
+  <tr>
+    <th scope="col"> <%= fa_icon("calendar-alt", text: "Data")%> </th>
+    <th scope="col"> <%= fa_icon("money-bill-alt", text: "Valor")%> </th>
+    <th scope="col"> <%= fa_icon("building", text: "Empresa")%> </th>
+    <th scope="col"> <%= fa_icon("comments", text: "Referente")%> </th>
+    <th scope="col"></th>
+  </tr>
+  <% recibos.each do |r| %>
+    <tr scope="row">
+      <td> <%= localize r.data %> </td>
+      <td> <%= number_to_currency r.valor %> </td>
+      <td> <%= link_to r.empresa, r.empresa, class: "text-info" %> </td>
+      <td> <%= r.referente %> </td>
+      <td> <%= link_to fa_icon("chevron-circle-right"), r, class: "btn btn-info control-bttn" %> </td>
+    </tr>
+  <% end %>
+  <tr scope="row">
+    <td colspan="5">
+      <div class="row">
+        <div class="col"> <%= page_entries_info recibos %> </div>
+        <div class="col-auto mr-4"> <%= paginate recibos %> </div>
+      </div>
+    </td>
+  </tr>
+</table>

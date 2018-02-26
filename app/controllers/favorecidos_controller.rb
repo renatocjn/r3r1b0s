@@ -22,6 +22,11 @@ class FavorecidosController < ApplicationController
   # GET /favorecidos/1
   # GET /favorecidos/1.json
   def show
+    if current_user.isAdmin
+      @ultimos_recibos = @favorecido.recibos.order(data: :desc)
+    else
+      @ultimos_recibos = @favorecido.recibos.where(usuario: current_user).order(data: :desc)
+    end
   end
 
   # GET /favorecidos/new

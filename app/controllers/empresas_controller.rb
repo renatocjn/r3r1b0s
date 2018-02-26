@@ -20,6 +20,11 @@ class EmpresasController < ApplicationController
   # GET /empresas/1
   # GET /empresas/1.json
   def show
+    if current_user.isAdmin
+      @ultimos_recibos = @empresa.recibos.order(data: :desc)
+    else
+      @ultimos_recibos = @empresa.recibos.where(usuario: current_user).order(data: :desc)
+    end
   end
 
   # GET /empresas/new
